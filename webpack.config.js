@@ -5,15 +5,27 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
+
+const optimizations = {
+    minimize: true,
+    minimizer: [new TerserPlugin(
+      {
+        parallel: true,
+      }
+    )],
+}
 
 const devServer = (isDev) => !isDev ? {} : {
   devServer: {
     open: true,
     port: 8080,
-    contentBase: path.join(__dirname, 'public'),
+    static: path.join(__dirname, 'public'),
   },
 };
+
+
+
 
 const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['ts', 'js'] }) ];
 
@@ -21,7 +33,7 @@ module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
   devtool: development ? 'inline-source-map' : false,
   entry: {
-    main: './src/index.ts',
+    main: './src/index.tsx',
   },
   output: {
     filename: '[name].[contenthash].js',
@@ -31,7 +43,7 @@ module.exports = ({ development }) => ({
   module: {
       rules: [
         {
-          test: /\.(ts|tsx|js)$/,
+          test: /\.(ts|tsx|js|jsx)$/,
           use: 'ts-loader',
           exclude: /node_modules/,
         },
@@ -67,7 +79,8 @@ module.exports = ({ development }) => ({
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
   ],
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
-  ...devServer(development)
+  ...devServer(development),
+  optimization: development ? {} :optimizations,
 });
