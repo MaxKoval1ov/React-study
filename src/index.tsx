@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import './styles.scss';
 
-import MyApp  from './myapp';
+import App  from './myapp';
 
 const entryBlock = document.getElementById('root');
 
 ReactDOM.render(
- <MyApp />,
+ <App />,
   entryBlock
 )
