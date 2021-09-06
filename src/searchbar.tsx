@@ -1,6 +1,12 @@
 import React from "react";
 
-class SearchBar extends React.Component {
+class SearchBar extends React.Component<any,any> {
+  constructor(props:any){
+    super(props);
+    this.state = {
+      value:"Find smth interesting"
+    }
+  }
   render(){
     return (
       <div className="input-group">
