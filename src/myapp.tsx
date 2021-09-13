@@ -12,20 +12,20 @@ class App extends React.Component<any,any> {
   }
  render()
  {
-   const derivedCards = this.state.cards.array.map((element:any) => {
+   const derivedCards = this.state.cards.map((element:any) => {
     return <div key = {element.id}>
       <ul>
         <li className = "name">{element.name}</li>
         <li className = "secName">{element.secName}</li>
         <li className = "date">{element.date}</li>
       </ul>
-      <img src="" alt="smt" />
+      <img src= {require("./assets/" + element.image)} alt="smt" />
     </div>
    });
    return (
    <div className = "main-container">
      <div className = "cards-container">
-
+      {derivedCards}
      </div>
    <SearchBar />
    </div>)
