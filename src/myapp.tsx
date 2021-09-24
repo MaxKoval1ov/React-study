@@ -26,8 +26,8 @@ class App extends React.Component<any,any> {
           todos:updated,
         }
       })
-  }
- render()
+    }
+    render()
  {
    const toDoItems:any = this.state.todos.map((item:any) => {
      return <TodoItem key = {item.id} item = {item}
